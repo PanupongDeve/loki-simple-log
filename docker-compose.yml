@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  grafana:
+    image: grafana/grafana-oss
+    ports:
+      - 3000:3000
+    volumes:
+      - ./config/grafana-config/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml:ro
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_AUTH_ANONYMOUS_ENABLED=true       
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Editor 
+  
+  loki:
+    image: grafana/loki
+    volumes:
+      - ./config/loki-config/loki-config.yaml:/etc/loki/loki-config.yaml
+    # ports:
+    #   - "3100:3100"
+  promtail:
+    image: grafana/promtail:latest
+    volumes:
+      - ./files:/files
+      - ./config/promtail-config/promtail-config.yml:/etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yml
