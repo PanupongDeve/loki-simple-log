@@ -1,4 +1,4 @@
-# Simeple Anatic log or files with Loki
+# Simeple logs or files Analytics  with Loki
 
 ## Usage
 1. Import files or logs in `files` directory
